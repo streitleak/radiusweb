@@ -48,6 +48,6 @@ class RadiusCDRServiceProvider extends ServiceProvider
  */           
         ],  'public');
         $this->loadRoutesFrom(__DIR__.'/route/route.php');
-        $this->loadViewsFrom(__DIR__.'/resources/views','radiuscdr');
+        $this->loadViewsFrom(__DIR__.'/resources/views','radiusweb');
     }
 }

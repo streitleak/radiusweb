@@ -10,7 +10,7 @@ class RadiusCDRController extends Controller
     //
     public function index()
     {
-        return View('radiuscdr::index');
+        return View('radiusweb::index');
 
     }
 
@@ -124,7 +124,7 @@ class RadiusCDRController extends Controller
             }*/        
             $page=null;
         }
-        return View('radiuscdr::cdr', ['cdrs' => $cdrs, 'starttime' => $starttime, 'stoptime' => $stoptime, 'calling' => $calling, 'called' => $called, 'duration' => $request->has('duration')?"checked":"", 'page' => $page]);
+        return View('radiusweb::cdr', ['cdrs' => $cdrs, 'starttime' => $starttime, 'stoptime' => $stoptime, 'calling' => $calling, 'called' => $called, 'duration' => $request->has('duration')?"checked":"", 'page' => $page]);
     
     }
 }
