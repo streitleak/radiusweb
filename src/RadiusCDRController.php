@@ -1,6 +1,6 @@
 <?php
 
-namespace Streitleak\RadiusCDR;
+namespace Streitleak\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

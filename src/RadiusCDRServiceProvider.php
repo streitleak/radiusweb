@@ -1,6 +1,6 @@
 <?php
 
-namespace Streitleak\RadiusCDR;
+namespace Streitleak\Web;
 
 use Illuminate\Support\ServiceProvider;
 
