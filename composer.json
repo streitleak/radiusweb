@@ -11,6 +11,9 @@
     ],
     "require": {},
 	"autoload": {
+		"classmap": [
+			"database/migrations"
+		],
         "psr-4": {
             "Streitleak\\RadiusWeb\\": "src/"
         }
