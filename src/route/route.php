@@ -1,9 +1,4 @@
 <?php
-
-Route::get('/',[Streitleak\RadiusWeb\RadiusCDRController::class,'index']);
 Route::get('index',[Streitleak\RadiusWeb\RadiusCDRController::class,'index']);
-Route::get('cdr',[Streitleak\RadiusWeb\RadiusCDRController::class,'cdr']);
-Route::post('cdr',[Streitleak\RadiusWeb\RadiusCDRController::class,'cdr']);
-
-
+Route::match(['get','post'],'cdr',[Streitleak\RadiusWeb\RadiusCDRController::class,'cdr']);
 ?>
