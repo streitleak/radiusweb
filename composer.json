@@ -11,7 +11,7 @@
     ],
     "require": {},
 	"autoload": {
-        "classmap": ["src/app/http/controllers", "src/app/http/middleware", "src/app/models"],
+        "classmap": ["src/app/http/controllers"],
         "psr-4": {
             "Streitleak\\RadiusWeb\\": "src/"
         }
