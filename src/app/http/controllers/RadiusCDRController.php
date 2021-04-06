@@ -3,6 +3,7 @@
 namespace Streitleak\RadiusWeb;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 
 class RadiusCDRController extends Controller
