@@ -12,7 +12,7 @@
     <script src="{{ asset('/js/app.js') }}"></script>
     <body>
         <div id="warpper">
-            <div id="header"><h1>FreeCDR WebUI</h1></div>
+            <div id="header"><h1>FreeCDR WebUI</h1><div id=home>{{ route('/') }}</div><div id=status>@if {{ route('/login') }}</div></div>
             <div id="navigation">@yield('navigation')</div>
             <div id="leftcolumn">@yield('leftcolumn')</div>
             <div id="content">

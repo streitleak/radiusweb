@@ -1,7 +1,10 @@
 <?php
 Route::get('index',[Streitleak\RadiusWeb\RadiusCDRController::class,'index']);
 Route::match(['get','post'],'cdr',[Streitleak\RadiusWeb\RadiusCDRController::class,'cdr']);
-Route::match(['get','post'],'login',[Streitleak\RadiusWeb\UserController::class,'login']);
-Route::get('logout',[Streitleak\RadiusWeb\UserController::class,'logout']);
-Route::match(['get','post'],'resetpassword',[Streitleak\RadiusWeb\UserController::class,'resetpassword']);
+Route::get('login',[Streitleak\RadiusWeb\UserController::class,'showlogin']);
+Route::post('login',[Streitleak\RadiusWeb\UserController::class,'dologin']);
+Route::get('logout',[Streitleak\RadiusWeb\UserController::class,'showlogout']);
+Route::post('logout',[Streitleak\RadiusWeb\UserController::class,'dologout']);
+Route::get('resetpassword',[Streitleak\RadiusWeb\UserController::class,'showresetpassword']);
+Route::post('resetpassword',[Streitleak\RadiusWeb\UserController::class,'doresetpassword']);
 ?>

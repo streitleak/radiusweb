@@ -2,12 +2,26 @@
     
 @section('content')
 <div id=loginform>
-<form method="POST" id=login name=login action="/login">
-<table>
-    <tr><td>ID:</td><td><input name=email id=email type=text length=20></td></tr>
-    <tr><td>Password:</td><td><input name=password id=password type=password length=40></td></tr>
-    <tr><td colspan=2><input type=button value=login> <a href=/resetpassword>Forgotten Password?</a>@csrf<div id=result></div></td></tr>
-</table>
-</form>
+    {{ Form::open(array('url' => 'login')) }}
+    <h1>Login</h1>
+    
+    <!-- if there are login errors, show them here -->
+    <p>
+        {{ $errors->first('email') }}
+        {{ $errors->first('password') }}
+    </p>
+    
+    <p>
+        {{ Form::label('email', 'Email Address') }}
+        {{ Form::text('email', Input::old('email'), array('placeholder' => 'awesome@awesome.com')) }}
+    </p>
+    
+    <p>
+        {{ Form::label('password', 'Password') }}
+        {{ Form::password('password') }}
+    </p>
+    
+    <p>{{ Form::submit('Submit!') }}</p>
+    {{ Form::close() }}
 </div>
 @endsection
