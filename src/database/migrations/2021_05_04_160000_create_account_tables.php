@@ -20,7 +20,8 @@ class CreateAccountTables extends Migration
 			$table->string('account_serial')->nullable(false);
 			$table->integer('points')->nullable(false)->default('0');
 			$table->integer('group')->nullable(false)->default('0');
-			$table->timestamps();
+			$table->timestamp('created_at')->useCurrent();
+			$table->timestamp('updated_at')->nullable(true);
 			$table->string('remark');
         });
 		Schema::create('account_group', function (Blueprint $table) {

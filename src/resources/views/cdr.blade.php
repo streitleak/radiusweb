@@ -1,7 +1,12 @@
 @extends('radiusweb::layouts.app')
 
 @section('leftcolumn')
-    Side Bar
+    @if(Auth::check())
+    <p>
+       <a href="{{route('showcdr')}}">CDR</a>
+       <a href="{{route('showrate')}}">Rate</a>
+    </p>
+    @endif
 @endsection
 @section('content')
 <form name="search" id="search" method="post" action="/cdr{{ $page }}">

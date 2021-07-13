@@ -71,7 +71,7 @@ class UserController extends Controller
                 $request->session()->regenerate();
 
                 // validation successful, send to Profile
-                return Redirect::to('profile');
+                return Redirect::to('index');
             }
             else 
             {        
@@ -100,10 +100,30 @@ class UserController extends Controller
     }
 
     public function showprofile(Request $request)
-    {
-        var_dump($request->user());
+    {        
+        return View('radiusweb::auth.profile', ['name' => $request->user()->name , 'email' => $request->user()->email]);
+    }
 
-        return View('radiusweb::auth.profile', ['name' => $request->user('name') , 'email' => $request->user('email')]);
+    public function doprofile(Request $request)
+    {         
+         // validate the info, create rules for the inputs
+         $rules = array(
+            'email'    => 'required|email', // make sure the email is an actual email
+            //'password' => 'required|alphaNum|min:6' // password can only be alphanumeric and has to be greater than 3 characters
+        );
+
+        // run the validation rules on the inputs from the form
+        $validator = Validator::make($request->all(), $rules);
+
+        // if the validator fails, redirect back to the form
+        if ($validator->fails()) 
+        {
+            return Redirect::to('profile/'.$equest->user()->id)
+                    ->withErrors($validator) // send back all errors to the login form
+                    ->withInput($request->except('email')); // send back the input (not the password) so that we can repopulate the form
+        }
+        
+        return View('radiusweb::auth.profile', ['name' => $request->user()->name , 'email' => $request->user()->email]);
     }
 }
 

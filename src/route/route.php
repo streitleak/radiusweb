@@ -1,4 +1,5 @@
 <?php
+
 Route::group(['middleware' => 'web','namespace' => 'Streitleak\RadiusWeb'], function() {
     Route::get('index',['as' => 'index', 'uses' => 'RadiusCDRController@index']);    
     Route::get('login',['as' => 'login', 'uses' => 'UserController@showlogin']);
@@ -11,6 +12,8 @@ Route::group(['middleware' => 'web','namespace' => 'Streitleak\RadiusWeb'], func
         Route::any('logout',['as' => 'logout', 'uses' => 'UserController@dologout']);    
         Route::get('cdr' , ['as'=>'showcdr', 'uses' => 'RadiusCDRController@showcdr']);
         Route::post('cdr' , ['as' => 'customcdr', 'uses' => 'RadiusCDRController@customcdr']);
+        Route::get('rate' , ['as' => 'showrate', 'uses' => 'RateController@showrate']);
+        Route::post('rate' , ['as' => 'importfile', 'uses' => 'RateController@importrate']);
     });
 });
 ?>

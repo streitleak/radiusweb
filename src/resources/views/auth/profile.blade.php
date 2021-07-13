@@ -1,5 +1,13 @@
 @extends('radiusweb::layouts.app')
-    
+
+@section('leftcolumn')
+    @if(Auth::check())
+    <p>
+       <a href="{{route('showcdr')}}">CDR</a>
+    </p>
+    @endif
+@endsection
+
 @section('content')
 <div id=profile>
     {{ Form::open(array('url' => 'profile')) }}

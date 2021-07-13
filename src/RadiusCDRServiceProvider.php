@@ -14,7 +14,9 @@ class RadiusCDRServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        $this->app->make('Streitleak\RadiusWeb\RadiusCDRController');
+        //$this->app->make('Streitleak\RadiusWeb\RadiusCDRController');
+        //$this->app->make('Streitleak\RadiusWeb\RateController');
+        //$this->app->make('Streitleak\RadiusWeb\UserController');
     }
 
     /**

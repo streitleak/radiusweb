@@ -16,7 +16,7 @@
                 <div id=status>
                     <a href={{ route('index') }}>home</a>
                 @if(Auth::check())
-                    <a href={{ route('profile')}}>{{ Auth::user()->username}}</a> ，<a href={{ route('logout') }}>logout</a>
+                    <a href={{ route('profile')}}>{{ $name }}</a> ，<a href={{ route('logout') }}>logout</a>
                 @else
                     <a href={{ route('login') }}>login</a>
                 @endif
