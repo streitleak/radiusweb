@@ -9,17 +9,19 @@
     @endif
 @endsection
 @section('content')
-<form name="search" id="search" method="post" action="/cdr{{ $page }}">
-    <table class="search">
+<div id="search">
+<form id="search_form" method="post" action="/cdr">
+    <table>
         <tr>
-            <td>Start Time:</td><td><input name="starttime" id="starttime" type="text" value="{{ $starttime }}"></td><td>Stop Time:</td><td><input name="stoptime" id="stoptime" type="text" value="{{ $stoptime }}"></td>
+            <td>Start Time:</td><td><input name="starttime" id="starttime" type="text" value="{{ $starttime }}"></td><td>Stop Time:</td><td><input name="stoptime" id="stoptime" type="text" value="{{ $stoptime }}"></td><td rowspan="2" id="search"><input type="submit" value="search"><input id="reset" type="button" value="clear"></td><td>@csrf</td>
         </tr>
         <tr>
             <td>Calling Number:</td><td><input name="calling" id="calling" type="text" value="{{ $calling }}"></td><td>Called Number:</td><td><input name="called" id="called" value="{{ $called }}" type="text"></td>
         </tr>
-        <tr>
-            <td>Duration:</td><td><input name="duration" id="duration" type="checkbox" {{ $duration }}></td><td><input type="submit" value="search"><input id="reset" type="button" value="clear"></td><td>@csrf</td>
     </table>    
+</form>
+</div>
+<div id="cdrs">
 <table>
     <thead>
         <th>ID</th>
@@ -115,6 +117,6 @@
         </tr>
     <tfoot>
 </table>
-</form>
 <div id="detail_show"></div>
+</div>
 @endsection

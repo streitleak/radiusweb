@@ -24,20 +24,18 @@ class RadiusCDRController extends Controller
 
     public function showcdr(Request $request)
     {
-        $cdrs = CDR::paginate(15)->onEachSide(2);
-        //$cdrs = \DB::table('freecdr')->orderByDesc('radacctid')->paginate(15)->onEachSide(2);   
+        $cdrs = CDR::where('netcallduration','>','0')->orderBy('radacctid','desc')->paginate(15)->onEachSide(2);
         return View('radiusweb::cdr', ['cdrs' => $cdrs, 'starttime' => null, 'stoptime' => null, 'calling' => null, 'called' => null, 'duration' => null, 'page' => null, 'name' => $request->user()->name]);
     }
 
     public function customcdr(Request $request)
     {
         $rules = array(
-            'starttime' => 'nullable|date_format("Y-m-d H:i:s")', // make sure the email is an actual email
-            'stoptime' => 'nullable|date_format("Y-m-d H:i:s")',
-            'calling' => 'nullable|nemuric',
-            'called' => 'nullable|nemuric',
-            'duration' => 'nullable|nemuric',
-            'page' => 'nullable|nemuric' // password can only be alphanumeric and has to be greater than 3 characters
+            'starttime' => 'nullable|date_format:Y-m-d H:i:s', // make sure the email is an actual email
+            'stoptime' => 'nullable|date_format:Y-m-d H:i:s',
+            'calling' => 'nullable|numeric',
+            'called' => 'nullable|numeric',
+            'page' => 'nullable|numeric' // password can only be alphanumeric and has to be greater than 3 characters
         );
         // run the validation rules on the inputs from the form
         $validator = Validator::make($request->all(), $rules);
@@ -47,123 +45,31 @@ class RadiusCDRController extends Controller
         {
             return Redirect::to('cdr'.$equest->user()->id)
                     ->withErrors($validator); // send back all errors to the login form
-//                    ->withInput($request->except('email')); // send back the input (not the password) so that we can repopulate the form
         }
 
-        #$cdr = CDR::all();
 
-        $query = "";
-        if( $request->filled('starttime') ) 
-        {
-            $starttime = $request->input('starttime');
-            
-        }
-        else
-        {
-            $starttime = NULL;
-        }
-    
-        if( $request->filled('stoptime') ) 
-        {
-            $stoptime = $request->input('stoptime');     
-        }
-        else
-        {
-            $stoptime = NULL;
-        }
-    
-        if( is_null($starttime) == false && is_null($stoptime) == false )
-        {
-            $query = " ( `NET-Setup-Time` >= '" . strtotime($starttime) . "' and `NET-Setup-Time` <= '" . strtotime($stoptime) . "' )";
-        }
-        else if( is_null($starttime) == false && is_null($stoptime) == true )
-        {
-            $query = " `NET-Setup-Time` >= '" . strtotime($starttime) . "'";
-        }
-        else if( is_null($starttime) == true && is_null($stoptime) == false )
-        {
-            $query = " `NET-Setup-Time` <= '" . strtotime($stoptime) . "'";
-        }
-        else
-        {
-            $query = "";
-        }
-    
-        if( $request->filled('calling') ) 
-        {
-            $calling = $request->input('calling');
-    
-            if(strlen($query) > 0 )
-            {
-                $query .=" and `NET-Calling-Number` = '" . $calling . "'";
-            }
-            else
-            {
-                $query =" `NET-Calling-Number` = '" . $calling . "'";
-            }
-            
-        }
-        else
-        {
-            $calling = NULL;
-        }
-    
-        if( $request->filled('called')) 
-        {
-            $called = $request->input('called');
-            if(strlen($query) > 0 )
-            {
-                $query .=" and `NET-Called-Number` = '" . $called . "'";
-            }        
-            else
-            {
-                $query =" `NET-Called-Number` = '" . $called . "'";
-            }
-            
-        }
-        else
-        {
-            $called = NULL;
-        }
-    
-        if( $request->has('duration')) 
-        {
-            if(strlen($query) > 0 )
-            {
-                $query .=" and `NET-Call-Duration` > 0";
-            }        
-            else
-            {
-                $query =" `NET-Call-Duration` > 0 ";
-            }        
-    
-        }
-    
-        if( $request->filled('page'))
-        {
-            $page="?page=" .  $request->input('page');
-        }
-        else $page = NULL;
-    
-        if( strlen($query) == 0 )
-        {
-            //$cdrs = \DB::table('freecdr')->paginate(15)->onEachSide(2);           
-            $cdrs = CDR::paginate(15)->onEachSide(2);
-        }
-        else
-        {
-            //$cdrs = \DB::table('freecdr')
-            //    ->whereRaw($query)
-            //    ->paginate(15)->onEachSide(2);
-            /*if( $cdrs->count() == 0)        
-            {
-                $cdrs = array();
-                $cdrs->paginate(15)->onEachSide(2);
-            }*/        
-            $cdrs = CDR::whereraw($query)->paginate(15)->onEachSide(2);
-            $page=null;
-        }
-        return View('radiusweb::cdr', ['cdrs' => $cdrs, 'starttime' => $starttime, 'stoptime' => $stoptime, 'calling' => $calling, 'called' => $called, 'duration' => $request->has('duration')?"checked":"", 'page' => $page, 'name' => $request->user()->name]);
+		$starttime = $request->input('starttime');
+		$stoptime = $request->input('stoptime');
+		$calling = $request->input('calling');
+		$called = $request->input('called');
+
+		$cdrs = CDR::where('netcallduration','>','0')
+				->when($starttime, function ($query, $starttime) {
+                    return $query->where('netconnecttime', '>=', strtotime($starttime));
+                })
+				->when($stoptime, function ($query, $stoptime) {
+                    return $query->where('netdisconnecttime', '<=', strtotime($stoptime));
+                })
+				->when($calling, function ($query, $calling) {
+                    return $query->where('netcallingnumber', '=', $calling);
+                })
+				->when($called, function ($query, $called) {
+                    return $query->where('netcallednumber', '=', $called);
+                })
+				->orderBy('radacctid','desc')
+				->paginate(15)->onEachSide(2);
+		
+        return View('radiusweb::cdr', ['cdrs' => $cdrs, 'starttime' => $starttime, 'stoptime' => $stoptime, 'calling' => $calling, 'called' => $called, 'name' => $request->user()->name]);
     
     }
 }

@@ -10,6 +10,7 @@
     <script src="{{ asset('/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('/js/jquery-ui-timepicker-addon.js') }}"></script>
     <script src="{{ asset('/js/app.js') }}"></script>
+	<script src="{{ asset('/js/radiusweb.js') }}"></script>
     <body>
         <div id="warpper">
             <div id="header"><h1>FreeCDR WebUI</h1>
