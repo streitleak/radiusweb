@@ -13,7 +13,7 @@ class CDR extends Model
      *
      * @var string
      */
-    protected $table = 'freecdr';
+    protected $table = 'radiuscdr';
 
     /**
      * The storage format of the model's date columns.
