@@ -13,8 +13,8 @@ class CreateRadiusTables extends Migration
      */
     public function up()
     {
-      if (!Schema::hasTable('freecdr')) {
-        Schema::create('freecdr', function (Blueprint $table) {
+      if (!Schema::hasTable('radiuscdr')) {
+        Schema::create('radiuscdr', function (Blueprint $table) {
             $table->bigInteger('radacctid')->nullable(false)->autoIncrement();
             $table->string('acctsessionid',64)->nullable(false)->default('');
             $table->string('acctuniqueid',32)->nullable(false)->default('');
@@ -308,7 +308,7 @@ class CreateRadiusTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('freecdr');
+        Schema::dropIfExists('radiuscdr');
         Schema::dropIfExists('radacct');
         Schema::dropIfExists('radcheck');
         Schema::dropIfExists('radgroupcheck');

@@ -8,23 +8,73 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Streitleak\RadiusWeb\App\Models\CDR;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
+use DB;
 
 class RadiusCDRController extends Controller
 {
+    public CDR $cdr_collection;
+    public function __construct()
+    {
+        $this->cdr_collection = new CDR();
+        $this->cdr_collection->where('netcallduration','>','0')
+                        ->where('netsetuptime','>',Carbon::now()->addMonths(-1)->timestamp)
+                        ->orderBy('radacctid','desc');
+    }
     //
     public function index(Request $request)
     {
+        //echo "Auth=" . (Auth::check()?"true":"false");
+        //echo "User=" . (Auth::user()?"true":"false");
         if(Auth::check())
-        {
-            return View('radiusweb::index',['name' => $request->user()->name]);
+        {       
+		    //$cdrs_30_0 = CDR::where('netsetuptime','>',Carbon::now()->addMonths(-1)->timestamp)->count();
+		    //$cdrs_30_1 = CDR::where('netcallduration','>','0')->where('netsetuptime','>',Carbon::now()->addMonths(-1)->timestamp)->count();
+		    //$gateways = CDR::select("nasipaddress", DB::raw("count(*) as calls"))->groupby('nasipaddress')->where('netcallduration','>','0')->where('netsetuptime','>',Carbon::now()->addMonths(-1)->timestamp)->get();
+            $cdrs_30_0 = $this->cdr_collection->count();
+		    $cdrs_30_1 = $this->cdr_collection->where('netsetuptime','>',Carbon::now()->addMonths(-1)->timestamp)->count();
+		    $gateways = $this->cdr_collection->select("nasipaddress", DB::raw("count(*) as calls"))->groupby('nasipaddress')->where('netsetuptime','>',Carbon::now()->addMonths(-1)->timestamp)->get();
+		    //var_dump($gateways);
+            //$cdrs_30_0 = 0;
+            //$cdrs_30_1 = 0;
+            //$gateways=null;
+        
+            return View('radiusweb::dashboard',['name' => $request->user()->name,'cdr_0' => $cdrs_30_0,'cdr_1' => $cdrs_30_1, 'gateways' => $gateways]);
         }
-        return View('radiusweb::index');
-
+        else
+        {
+            return View('radiusweb::index');
+        }
     }
 
     public function showcdr(Request $request)
     {
-        $cdrs = CDR::where('netcallduration','>','0')->orderBy('radacctid','desc')->paginate(15)->onEachSide(2);
+        //$cdrs = CDR::where('netcallduration','>','0')
+        //            ->where('netsetuptime','>',Carbon::now()->addMonths(-1)->timestamp)
+        //            ->orderBy('radacctid','desc')
+        //            ->paginate(15)
+        //            ->onEachSide(2);
+        $cdrs = $this->cdr_collection->paginate(15)
+                    ->onEachSide(2);
+        return View('radiusweb::cdr', ['cdrs' => $cdrs, 'starttime' => null, 'stoptime' => null, 'calling' => null, 'called' => null, 'duration' => null, 'page' => null, 'name' => $request->user()->name]);
+    }
+
+    public function showgwcdr(Request $request,$gateway)
+    {
+        $gateway = urldecode($gateway);
+        //$cdrs = CDR::where('netcallduration','>','0')
+        //            ->when($gateway, function ($query, $gateway) {
+        //                return $query->where('nasipaddress', '=', $gateway);
+        //            })
+        //            ->where('netsetuptime','>',Carbon::now()->addMonths(-1)->timestamp)
+        //            ->orderBy('radacctid','desc')
+        //            ->paginate(15)
+        //            ->onEachSide(2);
+        $cdrs = $this->cdr_collection->when($gateway, function ($query, $gateway) {
+                        return $query->where('nasipaddress', '=', $gateway);
+                    })
+                    ->paginate(15)
+                    ->onEachSide(2);
         return View('radiusweb::cdr', ['cdrs' => $cdrs, 'starttime' => null, 'stoptime' => null, 'calling' => null, 'called' => null, 'duration' => null, 'page' => null, 'name' => $request->user()->name]);
     }
 
@@ -53,7 +103,7 @@ class RadiusCDRController extends Controller
 		$calling = $request->input('calling');
 		$called = $request->input('called');
 
-		$cdrs = CDR::where('netcallduration','>','0')
+		$cdrs = $this->cdr_collection->where('netcallduration','>','0')
 				->when($starttime, function ($query, $starttime) {
                     return $query->where('netconnecttime', '>=', strtotime($starttime));
                 })

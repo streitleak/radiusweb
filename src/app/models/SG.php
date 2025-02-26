@@ -5,7 +5,7 @@ namespace Streitleak\RadiusWeb\app\models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CDR extends Model
+class SG extends Model
 {
     use HasFactory;
     /**
@@ -13,7 +13,7 @@ class CDR extends Model
      *
      * @var string
      */
-    protected $table = 'radiuscdr';
+    protected $table = 'ribbonsg';
 
     /**
      * The storage format of the model's date columns.
@@ -21,6 +21,13 @@ class CDR extends Model
      * @var string
      */
     protected $dateFormat = 'Y-m-d H:i:s';
+
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'record_id';
 
     /**
      * Indicates if the model should be timestamped.
