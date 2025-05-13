@@ -1,6 +1,6 @@
 <?php
 
-namespace Streitleak\RadiusWeb;
+namespace Streitleak\Radiusweb;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
-use Streitleak\RadiusWeb\App\Models\Rate;
+use Streitleak\RadiusWeb\app\models\Rate;
 
 class RateController extends Controller
 {
