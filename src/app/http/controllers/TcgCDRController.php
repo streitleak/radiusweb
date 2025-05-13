@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Streitleak\Radiusweb\app\models\CDR;
+use Streitleak\RadiusWeb\app\models\CDR;
 use Illuminate\Support\Facades\Validator;
 
 class TcgCDRController extends Controller
