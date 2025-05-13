@@ -1,6 +1,6 @@
 <?php
 
-namespace Streitleak\Radiusweb;
+namespace Streitleak\RadiusWeb;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
