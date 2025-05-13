@@ -1,12 +1,12 @@
 <?php
 
-namespace Streitleak\RadiusWeb;
+namespace Streitleak\Radiusweb;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Streitleak\RadiusWeb\App\Models\CDR;
+use Streitleak\RadiusWeb\app\models\CDR;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use DB;
