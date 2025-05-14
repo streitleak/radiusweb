@@ -1,7 +1,11 @@
 <?php
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 namespace Streitleak\Radiusweb;
+=======
+namespace Streitleak\Radiusweb\App\Http\Controllers;
+>>>>>>> Stashed changes
 =======
 namespace Streitleak\Radiusweb\App\Http\Controllers;
 >>>>>>> Stashed changes
