@@ -3,7 +3,7 @@
     "description": "Radius CDR Web Interface",
     "type": "project",
     "license": "GPL-3.0-or-later",
-    "version": "0.0.18",
+    "version": "0.0.19",
     "authors": [
         {
             "name": "streitleak",
