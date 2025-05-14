@@ -8,10 +8,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Streitleak\Radiusweb\App\Models\CDR;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class TcgCDRController extends Controller
 {
-    //
+    public CDR $cdr_collection;
+    public function __construct()
+    {
+        $this->cdr_collection = new CDR();
+        $this->cdr_collection->where('netcallduration','>','0')
+                        ->where('netsetuptime','>',Carbon::now()->addMonths(-1)->timestamp)
+                        ->orderBy('radacctid','desc');
+    }
+	//
     public function index(Request $request)
     {
         if(Auth::check())
