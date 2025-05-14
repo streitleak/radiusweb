@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "laravel/laravel": "^8.5"
+        "laravel/laravel": ">=8.5"
     },
     "autoload": {
         "psr-4": {
