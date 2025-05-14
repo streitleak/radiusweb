@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'web','namespace' => 'Streitleak\Radiusweb'], function() {
+Route::group(['middleware' => 'web','namespace' => 'Streitleak\Radiusweb\App\Http\Controllers'], function() {
     Route::get('index',['as' => 'index', 'uses' => 'RadiusCDRController@index']);    
     Route::get('login',['as' => 'login', 'uses' => 'UserController@showlogin']);
     Route::post('login',['as' => 'login', 'uses' => 'UserController@dologin']);    
