@@ -13,14 +13,16 @@ class CreateSgTables extends Migration
      */
     public function up()
     {
-        Schema::create('ribbonsg', function (Blueprint $table) {
+        if (!Schema::hasTable('ribbonsg')) {
+			Schema::create('ribbonsg', function (Blueprint $table) {
                 $table->bigInteger('radacctid')->nullable(false)->autoIncrement();
                 $table->ipAddress('gwip')->nullable(false)->default('0.0.0.0');
                 $table->integer('sgid')->nullable(false)->default(0);
                 $table->string('sgname',100)->nullable(false)->default('');
                 $table->timestamps();
                 $table->primary('record_id');
-        });
+			});
+		}
     }
     /**
      * Reverse the migrations.

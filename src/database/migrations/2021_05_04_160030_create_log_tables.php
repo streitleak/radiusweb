@@ -13,22 +13,26 @@ class CreateLogTables extends Migration
      */
     public function up()
     {
-		Schema::create('fwiring', function (Blueprint $table) {          
-            $table->increments('record_id');
-			$table->string('from')->nullable(false);
-			$table->string('to')->nullable(false);
-			$table->integer('points')->nullable(false)->default('0');			
-			$table->timestamp('wiring_at')->nullable(false)->default(DB::raw('CURRENT_TIMESTAMP'));
-			$table->string('remark');
-        });
-		Schema::create('bwiring', function (Blueprint $table) {          
-            $table->increments('record_id');
-			$table->string('from')->nullable(false);
-			$table->string('to')->nullable(false);
-			$table->integer('points')->nullable(false)->default('0');			
-			$table->timestamp('wiring_at')->nullable(false)->default(DB::raw('CURRENT_TIMESTAMP'));
-			$table->string('remark');
-        });
+		if (!Schema::hasTable('fwiring')) {
+			Schema::create('fwiring', function (Blueprint $table) {          
+				$table->increments('record_id');
+				$table->string('from')->nullable(false);
+				$table->string('to')->nullable(false);
+				$table->integer('points')->nullable(false)->default('0');			
+				$table->timestamp('wiring_at')->nullable(false)->default(DB::raw('CURRENT_TIMESTAMP'));
+				$table->string('remark');
+			});
+		}
+		if (!Schema::hasTable('bwiring')) {
+			Schema::create('bwiring', function (Blueprint $table) {          
+				$table->increments('record_id');
+				$table->string('from')->nullable(false);
+				$table->string('to')->nullable(false);
+				$table->integer('points')->nullable(false)->default('0');			
+				$table->timestamp('wiring_at')->nullable(false)->default(DB::raw('CURRENT_TIMESTAMP'));
+				$table->string('remark');
+			});
+		}
 	}
     /**
      * Reverse the migrations.

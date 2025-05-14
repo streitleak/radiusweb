@@ -13,13 +13,15 @@ class CreateGatewayTables extends Migration
      */
     public function up()
     {
-		Schema::create('gateway', function (Blueprint $table) {          
-            $table->increments('gateway_id');
-            $table->string('ip',15)->nullable(false);
-			$table->integer('rate')->nullable(false)->default('0');
-			$table->timestamps();
-			$table->string('remark');
-        });
+		if (!Schema::hasTable('gateway')) {
+			Schema::create('gateway', function (Blueprint $table) {          
+				$table->increments('gateway_id');
+				$table->string('ip',15)->nullable(false);
+				$table->integer('rate')->nullable(false)->default('0');
+				$table->timestamps();
+				$table->string('remark');
+			});
+		}
 	}
     /**
      * Reverse the migrations.

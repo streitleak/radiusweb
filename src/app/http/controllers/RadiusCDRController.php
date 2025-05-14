@@ -1,12 +1,20 @@
 <?php
 
+<<<<<<< Updated upstream
 namespace Streitleak\Radiusweb;
+=======
+namespace Streitleak\Radiusweb\App\Http\Controllers;
+>>>>>>> Stashed changes
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+<<<<<<< Updated upstream
 use Streitleak\Radiusweb\app\models\CDR;
+=======
+use Streitleak\Radiusweb\App\Models\CDR;
+>>>>>>> Stashed changes
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use DB;

@@ -3,13 +3,16 @@
     "description": "Radius CDR Web Interface",
     "type": "project",
     "license": "GPL-3.0-or-later",
+	"version": "0.0.16",
     "authors": [
         {
             "name": "streitleak",
             "email": "streitleak@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+		"laravel/laravel": "^8.5"
+	},
 	"autoload": {
         "psr-4": {
             "Streitleak\\Radiusweb\\": "src/"

@@ -1,6 +1,6 @@
 <?php
 
-namespace Streitleak\RadiusWeb\app\models;
+namespace Streitleak\RadiusWeb\App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

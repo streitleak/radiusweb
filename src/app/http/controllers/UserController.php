@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< Updated upstream
 namespace Streitleak\Radiusweb;
+=======
+namespace Streitleak\Radiusweb\App\Http\Controllers;
+>>>>>>> Stashed changes
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
