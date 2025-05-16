@@ -15,8 +15,8 @@
     "autoload": {
         "psr-4": {
             "Streitleak\\Radiusweb\\": "src/",
-			"Streitleak\\Radiusweb\\Controllers\\": "src/app/http/controllers/",
-			"Streitleak\\Radiusweb\\Models\\": "src/app/models/"
+            "Streitleak\\Radiusweb\\Controllers\\": "src/app/http/controllers/",
+            "Streitleak\\Radiusweb\\Models\\": "src/app/models/"
         }
     }
 }
