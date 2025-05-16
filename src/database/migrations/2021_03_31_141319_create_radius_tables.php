@@ -199,10 +199,10 @@ class CreateRadiusTables extends Migration
           Schema::create('radcheck', function (Blueprint $table) {        
             $table->unsignedInteger('id')->nullable(false)->autoIncrement();
             $table->string('username',64)->nullable(false)->default('0');
-            $table->string('attribute',64) ->nullable(false)->default('0');
+            $table->string('attribute',64)->nullable(false)->default('0');
             $table->string('op',2)->nullable(false)->default('==');
             $table->string('value',253)->nullable(false)->default('0');
-            $table->index([DB::raw('username(32)')]);
+            $table->index('username');
         });
         }
           
@@ -215,8 +215,8 @@ class CreateRadiusTables extends Migration
             $table->string('groupname',64)->nullable(false)->default('0');
             $table->string('attribute',64) ->nullable(false)->default('0');
             $table->string('op',2)->nullable(false)->default('==');
-            $table->string('value',253) ->nullable(false)->default('0');
-            $table->index([DB::raw('groupname(32)')]);
+            $table->string('value',253)->nullable(false)->default('0');
+            $table->index('groupname');
         });
       }
           
@@ -229,8 +229,8 @@ class CreateRadiusTables extends Migration
             $table->string('groupname',64)->nullable(false)->default('0');
             $table->string('attribute',64)->nullable(false)->default('0');
             $table->string('op',2)->nullable(false)->default('=');
-            $table->string('value',253) ->nullable(false)->default('0');
-            $table->index([DB::raw('groupname(32)')]);
+            $table->string('value',253)->nullable(false)->default('0');
+            $table->index('groupname');
         });
       }
           
@@ -244,7 +244,7 @@ class CreateRadiusTables extends Migration
             $table->string('attribute',64)->nullable(false)->default('0');
             $table->string('op',2)->nullable(false)->default('=');
             $table->string('value',253)->nullable(false)->default('0');
-            $table->index([DB::raw('username(32)')]);
+            $table->index('username');
         });
       }
           
@@ -258,7 +258,7 @@ class CreateRadiusTables extends Migration
             $table->string('username',64)->nullable(false)->default('0');
             $table->string('groupname',64)->nullable(false)->default('0');
             $table->integer('priority')->nullable(false)->default('1');
-            $table->index([DB::raw('username(32)')]);
+            $table->index('username');
         });
       }
           
@@ -278,7 +278,7 @@ class CreateRadiusTables extends Migration
             $table->string('pass',64)->nullable(false)->default('0');
             $table->string('reply',32)->nullable(false)->default('0');
             $table->timestamp('authdate',6)->nullable(false)->useCurrent()->useCurrentOnUpdate();
-            $table->index([DB::raw('username(32)')]);
+            $table->index('username');
         });
       }
           
@@ -289,7 +289,7 @@ class CreateRadiusTables extends Migration
             Schema::create('nas', function (Blueprint $table) {        
             $table->integer('id')->nullable(false)->autoIncrement();
             $table->string('nasname',128)->nullable(false);
-            $table->string(' shortname',32);
+            $table->string('shortname',32);
             $table->string('type',30)->default('other');
             $table->integer('ports');
             $table->string('secret',60)->nullable(false)->default('secret');

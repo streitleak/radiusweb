@@ -15,7 +15,7 @@ class CreateSgTables extends Migration
     {
         if (!Schema::hasTable('ribbonsg')) {
 			Schema::create('ribbonsg', function (Blueprint $table) {
-                $table->bigInteger('radacctid')->nullable(false)->autoIncrement();
+                $table->bigInteger('record_id')->nullable(false)->autoIncrement();
                 $table->ipAddress('gwip')->nullable(false)->default('0.0.0.0');
                 $table->integer('sgid')->nullable(false)->default(0);
                 $table->string('sgname',100)->nullable(false)->default('');

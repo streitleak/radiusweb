@@ -1,6 +1,6 @@
 <?php
 
-namespace Streitleak\RadiusWeb\App\Models;
+namespace Streitleak\RadiusWeb\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
